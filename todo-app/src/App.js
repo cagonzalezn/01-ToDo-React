@@ -38,9 +38,27 @@ export default function App() {
       title,
       completed: false
     }
+
     const todoList = [...todos]
     todoList.push(newTodo);
-    setTodos(TodoList)
+    setTodos(todoList)
+  }
+
+//Funcion para mostrar como completada cuando de click
+
+  const handleSetComplete = (id) => {
+    const updateList = todos.map(todo => {
+      if (todo.id === id){
+        return {...todo, completed:!todo.completed}
+      }
+      return todo;
+    })
+    setTodos(updateList)
+  }
+
+  const handleDelete = (id) => {
+    const updateList = todos.filter(todo=>todo.id !== id)
+    setTodos(updateList);
   }
 
   return (
@@ -48,7 +66,9 @@ export default function App() {
       <div className='container flex flex-col max-w-xl'>
       <Title/>
       <TodoInput addTodo={addTodo}/>
-      <TodoList todos={todos}/>
+      <TodoList todos={todos}
+      handleSetComplete={handleSetComplete}
+      handleDelete={handleDelete}/>
       </div>
     </div>
   )
