@@ -4,7 +4,7 @@ import { TodoInput } from './components/TodoInput';
 import { TodoList } from './components/TodoList/TodoList';
 import { useEffect, useState } from 'react';
 
-export default function App() {
+function App() {
   const [ todos, setTodos] = useState([
     {
       id:1,
@@ -56,25 +56,25 @@ export default function App() {
     setTodos(updateList)
   }
 
+  const handleClearComplete = () => {
+    const updateList = todos.filter(todo=>!todo.completed);
+    setTodos(updateList);
+  }
+
   const handleDelete = (id) => {
     const updateList = todos.filter(todo=>todo.id !== id)
     setTodos(updateList);
   }
 
-  const handleClearComplete = () => {
-    const updateList = todos.filter(todo=>!todo.completed);
-    setActiveFilter(updateList);
-  }
-
   const showAllTodos = () => {
-    setActiveFilter('active')
+    setActiveFilter('all')
   }
 
   const showActiveTodos = () => {
-    setActiveFilter('completed')
+    setActiveFilter('active')
   }
 
-  const showCompletetedTodos = () => {
+  const showCompletedTodos = () => {
     setActiveFilter('completed')
   }
 
@@ -96,15 +96,17 @@ export default function App() {
       <Title/>
       <TodoInput addTodo={addTodo}/>
       <TodoList 
-        todos={filteredTodos}
         activeFilter={activeFilter}
-        handleSetComplete={handleSetComplete}
-        handleDelete={handleDelete}
+        todos={filteredTodos}
         showAllTodos={showAllTodos}
         showActiveTodos={showActiveTodos}
-        showCompletetedTodo={showCompletetedTodos}
+        showCompletedTodos={showCompletedTodos}
+        handleSetComplete={handleSetComplete}
+        handleDelete={handleDelete}
         handleClearComplete={handleClearComplete}/>
       </div>
     </div>
   )
 }
+
+export default App;

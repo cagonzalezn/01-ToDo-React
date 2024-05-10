@@ -3,14 +3,13 @@ import { TodoFilters } from "../TodoFilters/TodoFilters"
 
 const TodoList = ({
     todos, 
+    activeFilter, 
     handleSetComplete, 
     handleDelete,
-    activeFilter, 
+    handleClearComplete,
     showAllTodos, 
     showActiveTodos, 
-    showCompletetedTodos, 
-    handleClearComplete
-}) => {
+    showCompletedTodos }) => {
     return (
         <div className="flex flex-col mt-7 rounded-lg overflow-hidden shadow-2xl">
             {todos.map(todo => (
@@ -21,14 +20,14 @@ const TodoList = ({
                 handleDelete={handleDelete}
                 />
             ) )}
-            <TodoFilters>
+            <TodoFilters
                 activeFilter={activeFilter}
                 total={todos.length}
                 showAllTodos={showAllTodos}
                 showActiveTodos={showActiveTodos}
-                showCompletetedTodo={showCompletetedTodos}
+                showCompletedTodos={showCompletedTodos}
                 handleClearComplete={handleClearComplete}
-            </TodoFilters>
+            />
         </div>
     )
 }
